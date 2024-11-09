@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs';
 
-class ReadMarkDown {
+class ReadProduct {
   products;
 
   constructor() {
@@ -27,4 +27,4 @@ class ReadMarkDown {
     };
   }
 }
-export default ReadMarkDown;
+export default ReadProduct;
