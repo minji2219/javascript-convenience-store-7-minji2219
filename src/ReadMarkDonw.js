@@ -21,8 +21,8 @@ class ReadMarkDown {
   makeProduct(product) {
     return {
       name: product[0],
-      price: product[1],
-      amount: product[2],
+      price: Number(product[1]),
+      amount: Number(product[2]),
       promotion: product[3],
     };
   }

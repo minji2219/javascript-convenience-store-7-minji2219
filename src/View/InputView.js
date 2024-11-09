@@ -3,7 +3,7 @@ import { Console } from '@woowacourse/mission-utils';
 class InputView {
   purchaseList;
   constructor() {
-    this.readItem();
+    // this.readItem();
   }
 
   async readItem() {
@@ -35,7 +35,7 @@ class InputView {
         .split('-');
       this.purchaseList.push({
         name: removeParentheses[0],
-        amount: removeParentheses[1],
+        amount: Number(removeParentheses[1]),
       });
     });
   }
