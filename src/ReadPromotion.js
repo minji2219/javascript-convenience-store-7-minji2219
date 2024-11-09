@@ -1,7 +1,7 @@
 import { Console, DateTimes } from '@woowacourse/mission-utils';
 import { readFileSync } from 'node:fs';
 
-class Promotion {
+class ReadPromotion {
   constructor(purchaseIndex) {
     this.promotions = [];
     this.readPromotion();
@@ -40,4 +40,4 @@ class Promotion {
   //적용이 된다면,
   //2. 수량이 없다면
 }
-export default Promotion;
+export default ReadPromotion;
