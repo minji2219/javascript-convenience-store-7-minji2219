@@ -1,4 +1,4 @@
-import { Console } from '@woowacourse/mission-utils';
+import {Console} from '@woowacourse/mission-utils';
 import ReadProduct from '../ReadProduct.js';
 
 class OutputView {
@@ -6,23 +6,10 @@ class OutputView {
 
   constructor() {
     this.products = new ReadProduct().products;
-    this.startGuide();
   }
 
   makeProductsString() {
-    this.products.map((product) =>
-      Console.print(
-        '- ' +
-          ' ' +
-          product.name +
-          ' ' +
-          product.price +
-          '원 ' +
-          product.amount +
-          '개 ' +
-          this.isPromotion(product.promotion)
-      )
-    );
+    this.products.map((product) => Console.print('- ' + ' ' + product.name + ' ' + product.price + '원 ' + product.amount + '개 ' + this.isPromotion(product.promotion)));
   }
 
   isPromotion(info) {
