@@ -1,11 +1,11 @@
 import { Console } from '@woowacourse/mission-utils';
-import ReadMarkDown from '../ReadMarkDonw.js';
+import ReadProduct from '../ReadProduct.js';
 
 class OutputView {
   products;
 
   constructor() {
-    this.products = new ReadMarkDown().products;
+    this.products = new ReadProduct().products;
     this.startGuide();
   }
 
