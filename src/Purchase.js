@@ -34,7 +34,7 @@ class Purchase {
       }
     }
     await this.isMembership();
-    this.printReceipt();
+    await this.printReceipt();
   }
 
   isPromotion(info) {
@@ -70,9 +70,11 @@ class Purchase {
 
       if (promotionCount > 0) {
         const confirm = await Console.readLineAsync(`\n현재 ${buyName} ${buyAmount - this.promotionBuy[purchaseIndex]}개는 프로모션 할인이 적용되지 않습니다. 그래도 구매하시겠습니까? (Y/N)\n`);
-        if (confirm === 'Y') {
+        if (confirm.toLowerCase() === 'y') {
           this.promotionBuy[purchaseIndex] += promotionCount;
           this.commonBuy.push(buyAmount - this.promotionBuy);
+        } else {
+          this.commonBuy.push(0);
         }
       }
     }
@@ -88,9 +90,17 @@ class Purchase {
 
   async isMembership() {
     const confirm = await Console.readLineAsync(`\n멤버십 할인을 받으시겠습니까? (Y/N)\n`);
-    if (confirm === 'Y') {
-      this.discount = new Discount(this.promotionBuy, this.commonBuy, this.inventory, this.itemIndex, this.presentation);
+    const discount = new Discount(this.promotionBuy, this.commonBuy, this.inventory, this.itemIndex, this.presentation);
+    if (confirm.toLowerCase() === 'y') {
+      return (this.discount = {
+        event: discount.eventDiscounts,
+        membership: discount.membershipDiscounts,
+      });
     }
+    return (this.discount = {
+      event: discount.eventDiscounts,
+      membership: 0,
+    });
   }
 
   async printReceipt() {
