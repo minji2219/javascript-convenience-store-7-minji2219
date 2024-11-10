@@ -1,9 +1,14 @@
 import {Console} from '@woowacourse/mission-utils';
+import Discount from './Discount.js';
+import Receipt from './View/Receipt.js';
 
 class Purchase {
   constructor(inventory, purchaseItem, purchaseIndex, promotions) {
     this.promotionBuy = [];
     this.commonBuy = [];
+    this.promotionIndex = [];
+    this.presentation = [];
+    this.discount;
     this.inventory = inventory;
     this.purchaseItems = purchaseItem;
     this.itemIndex = purchaseIndex;
@@ -17,16 +22,19 @@ class Purchase {
   async purchase() {
     for (let index = 0; index < this.itemIndex.length; index++) {
       const inventoryIndex = this.itemIndex[index];
-      const promotionIndex = this.isPromotion(this.inventory[inventoryIndex].promotion);
-      if (promotionIndex > -1) {
-        await this.promotionCount(inventoryIndex, promotionIndex, index);
+      this.promotionIndex[index] = this.isPromotion(this.inventory[inventoryIndex].promotion);
+      if (this.promotionIndex[index] > -1) {
+        await this.promotionCount(inventoryIndex, this.promotionIndex[index], index);
       }
       //프로모션이 없을 때
       else {
-        this.promotionBuy.push(null);
+        this.presentation.push(null);
+        this.promotionBuy.push(0);
         this.commonBuy.push(this.purchaseItems[index].amount);
       }
     }
+    await this.isMembership();
+    this.printReceipt();
   }
 
   isPromotion(info) {
@@ -68,13 +76,25 @@ class Purchase {
         }
       }
     }
+    this.presentation.push(parseInt(this.promotionBuy[purchaseIndex] / (get + buy)));
   }
 
   async isRightCount(buyName, buyAmount, buy, get) {
-    if (buyAmount % (buy + get) !== 0) {
+    if (buyAmount === buy && buyAmount % (buy + get) !== 0) {
       return await Console.readLineAsync(`\n현재 ${buyName}은(는) ${get}개를 무료로 더 받을 수 있습니다. 추가하시겠습니까? (Y/N)\n`);
     }
     return 'N';
+  }
+
+  async isMembership() {
+    const confirm = await Console.readLineAsync(`\n멤버십 할인을 받으시겠습니까? (Y/N)\n`);
+    if (confirm === 'Y') {
+      this.discount = new Discount(this.promotionBuy, this.commonBuy, this.inventory, this.itemIndex, this.presentation);
+    }
+  }
+
+  async printReceipt() {
+    new Receipt(this.inventory, this.itemIndex, this.commonBuy, this.promotionBuy, this.presentation, this.discount);
   }
 }
 export default Purchase;
