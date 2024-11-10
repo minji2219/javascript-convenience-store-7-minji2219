@@ -33,8 +33,12 @@ class InventoryManagement {
     let totalAmount = this.inventory[index].amount;
     if (this.inventory[index].promotion !== 'null') totalAmount += this.inventory[index + 1].amount;
 
-    if (totalAmount < amount) {
-      throw new Error('[ERROR] 재고 수량을 초과하여 구매할 수 없습니다. 다시 입력해 주세요.');
+    try {
+      if (totalAmount < amount) {
+        throw new Error('[ERROR] 재고 수량을 초과하여 구매할 수 없습니다. 다시 입력해 주세요.');
+      }
+    } catch (err) {
+      Console.print(err.message);
     }
   }
 

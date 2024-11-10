@@ -9,12 +9,17 @@ class OutputView {
   }
 
   makeProductsString() {
-    this.products.map((product) => Console.print('- ' + ' ' + product.name + ' ' + product.price + '원 ' + product.amount + '개 ' + this.isPromotion(product.promotion)));
+    this.products.map((product) => Console.print('- ' + product.name + ' ' + product.price.toLocaleString() + '원 ' + this.outOfStock(product.amount) + ' ' + this.isPromotion(product.promotion)));
   }
 
   isPromotion(info) {
-    if (info === 'null') return '';
-    return info;
+    if (info) return info;
+    return '';
+  }
+
+  outOfStock(info) {
+    if (info === 0) return '재고 없음';
+    return info + '개';
   }
 
   startGuide() {
