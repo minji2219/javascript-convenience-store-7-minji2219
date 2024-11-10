@@ -40,7 +40,7 @@ class InventoryManagement {
 
   recountInventory(promotionBuy, commonBuy) {
     this.purchaseIndexList.map((purchaseIndex, index) => {
-      if (promotionBuy[index] !== null) {
+      if (promotionBuy[index] > 0) {
         this.inventory[purchaseIndex].amount -= promotionBuy[index];
         this.inventory[purchaseIndex + 1].amount -= commonBuy[index];
       } else {

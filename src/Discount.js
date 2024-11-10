@@ -6,24 +6,25 @@
 import {Console} from '@woowacourse/mission-utils';
 
 class Discount {
-  constructor(promotionBuy, commonBuy, inventory, purchaseIndex, promotions, promotionIndex) {
+  constructor(promotionBuy, commonBuy, inventory, purchaseIndex, presentation) {
     this.membershipDiscounts = 0;
     this.eventDiscounts = 0;
     this.promotionBuy = promotionBuy;
     this.commonBuy = commonBuy;
     this.inventory = inventory;
     this.purchaseIndex = purchaseIndex;
-    this.promotions = promotions;
-    this.promotionIndex = promotionIndex;
+    this.presentation = presentation;
+
     this.eventDiscount();
     this.membershipDiscount();
   }
 
   eventDiscount() {
+    Console.print(this.presentation);
     this.promotionBuy.map((buy, index) => {
-      const promotion = this.promotions[this.promotionIndex[index]];
+      Console.print(this.presentation);
       const price = this.inventory[this.purchaseIndex[index]].price;
-      this.eventDiscounts += price * (buy / (promotion.get + promotion.buy));
+      this.eventDiscounts += price * this.presentation[index];
     });
     Console.print('이벤트 할인' + this.eventDiscounts);
     this.eventDiscounts;
