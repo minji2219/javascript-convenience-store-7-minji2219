@@ -19,7 +19,7 @@ class Receipt {
   }
 
   printReceipt() {
-    Console.print('==============W 편의점================');
+    Console.print('\n==============W 편의점================');
     Console.print('상품명'.padEnd(18, ' ') + '수량'.padEnd(10, ' ') + '금액');
     this.printPurchase();
     Console.print('=============증    정===============');
