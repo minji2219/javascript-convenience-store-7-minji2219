@@ -47,11 +47,10 @@ class InventoryManagement {
       if (promotionBuy[index] > 0) {
         this.inventory[purchaseIndex].amount -= promotionBuy[index];
         this.inventory[purchaseIndex + 1].amount -= commonBuy[index];
-      } else {
-        this.inventory[purchaseIndex].amount -= commonBuy[index];
+        return;
       }
+      this.inventory[purchaseIndex].amount -= commonBuy[index];
     });
-    // Console.print(this.inventory);
   }
 }
 

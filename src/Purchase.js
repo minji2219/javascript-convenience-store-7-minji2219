@@ -51,7 +51,7 @@ class Purchase {
 
     //프로모션 상품에서 모두 구매가능할 경우
     if (realAmount > buyAmount) {
-      if ((await this.isRightCount(buyName, buyAmount, buy, get)) === 'Y') {
+      if ((await this.isRightCount(buyName, buyAmount, buy, get)).toLowerCase() === 'y') {
         this.promotionBuy.push(buyAmount + 1);
       } else {
         this.promotionBuy.push(buyAmount);

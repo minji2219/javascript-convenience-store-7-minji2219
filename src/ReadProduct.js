@@ -1,4 +1,3 @@
-import {Console} from '@woowacourse/mission-utils';
 import {readFileSync} from 'node:fs';
 
 class ReadProduct {
